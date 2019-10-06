@@ -21,13 +21,11 @@ public class PackageCreateService {
 
     private final PackageRepository packageRepository;
     private final ProductRetrieveClient productRetrieveClient;
-    private final ExchangeClient exchangeClient;
     private final ValidationService validationService;
 
-    public PackageCreateService(PackageRepository repository, ProductRetrieveClient productRetrieveClient, ExchangeClient exchangeClient, ValidationService validationService) {
+    public PackageCreateService(PackageRepository repository, ProductRetrieveClient productRetrieveClient, ValidationService validationService) {
         this.packageRepository = repository;
         this.productRetrieveClient = productRetrieveClient;
-        this.exchangeClient = exchangeClient;
         this.validationService = validationService;
     }
 
@@ -62,11 +60,7 @@ public class PackageCreateService {
         if (request.getExchangeRate() == ExchangeRate.USD) {
             productPackage.setTotalPrice(productPackageTotal);
         } else {
-            ExchangeRateResponse rateResponse = exchangeClient.getExchangeRates().getBody();
-            if (rateResponse == null || rateResponse.getRates() == null) {
-                throw new RateExternalServiceNoContentException("Rate service provider do not return information");
-            }
-            BigDecimal rate = rateResponse.getRates().get(request.getExchangeRate().name());
+            BigDecimal rate = validationService.checkRate(request.getExchangeRate());
             productPackage.setTotalPrice(productPackageTotal.multiply(rate));
         }
 

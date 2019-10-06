@@ -88,16 +88,24 @@ class Update extends React.Component {
                         <input type="text" name="description" value={this.state.description}
                                onChange={this.handleChange} placeholder="Desc"/>
                     </p>
-
                     <p>
                         <label>exchangeRate:</label>
-                        <input type="text" name="exchangeRate" value={this.state.exchangeRate}
-                               onChange={this.handleChange} placeholder="exchangeRate"/>
+                        <select
+                            type="text"
+                            name="exchangeRate"
+                            defaultValue={this.state.exchangeRate}
+                            onChange={this.handleChange}
+                            placeholder="USD or GBP or EURO"
+                        >
+                            <option value="USD">Select Currency</option>
+                            <option value="GBP">GBP</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </p>
                     <p>
                         <label>productIds:</label>
                         <input type="text" name="products" value={this.state.products}
-                               onChange={this.handleProductIdChange} placeholder="comma between ids"/>
+                               onChange={this.handleProductIdChange.bind(this)} placeholder="comma between ids"/>
                     </p>
 
                     <p>

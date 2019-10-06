@@ -72,9 +72,19 @@ class Create extends React.Component {
 
                     <p>
                         <label>exchangeRate:</label>
-                        <input type="text" name="exchangeRate" value={this.state.exchangeRate}
-                               onChange={this.handleChange} placeholder="USD or GBP or EURO"/>
+                        <select
+                            type="text"
+                            name="exchangeRate"
+                            defaultValue={this.state.exchangeRate}
+                            onChange={this.handleChange}
+                            placeholder="USD or GBP or EUR"
+                        >
+                            <option value="USD">Select Currency</option>
+                            <option value="GBP">GBP</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </p>
+
                     <p>
                         <label>productIds:</label>
                         <input type="text" name="products" value={this.state.products}

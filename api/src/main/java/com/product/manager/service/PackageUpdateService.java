@@ -4,10 +4,8 @@ import com.product.manager.client.ExchangeClient;
 import com.product.manager.client.ProductRetrieveClient;
 import com.product.manager.domain.entity.Package;
 import com.product.manager.domain.request.PackageUpdateRequest;
-import com.product.manager.domain.response.ExchangeRateResponse;
 import com.product.manager.domain.response.ProductResponse;
 import com.product.manager.enumeration.ExchangeRate;
-import com.product.manager.exception.RateExternalServiceNoContentException;
 import com.product.manager.repository.PackageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,13 +19,13 @@ import java.util.stream.Collectors;
 public class PackageUpdateService {
 
     private final PackageRepository repository;
-    private final ExchangeClient exchangeClient;
     private final ProductRetrieveClient productRetrieveClient;
+    private final ValidationService validationService;
 
 
-    public PackageUpdateService(PackageRepository repository, ExchangeClient exchangeClient, ProductRetrieveClient productRetrieveClient, ValidationService validationService) {
+    public PackageUpdateService(PackageRepository repository, ProductRetrieveClient productRetrieveClient, ValidationService validationService) {
         this.repository = repository;
-        this.exchangeClient = exchangeClient;
+        this.validationService = validationService;
         this.productRetrieveClient = productRetrieveClient;
     }
 
@@ -61,11 +59,7 @@ public class PackageUpdateService {
         if (request.getExchangeRate() == ExchangeRate.USD) {
             productPackage.setTotalPrice(productPackageTotal);
         } else {
-            ExchangeRateResponse rateResponse = exchangeClient.getExchangeRates().getBody();
-            if (rateResponse == null || rateResponse.getRates() == null) {
-                throw new RateExternalServiceNoContentException("Rate service provider do not return information");
-            }
-            BigDecimal rate = rateResponse.getRates().get(request.getExchangeRate().name());
+            BigDecimal rate = validationService.checkRate(request.getExchangeRate());
             BigDecimal productPackageTotalRateConverted = productPackageTotal.multiply(rate);
             productPackage.setTotalPrice(productPackageTotalRateConverted);
         }
