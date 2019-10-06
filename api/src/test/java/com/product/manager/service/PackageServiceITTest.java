@@ -125,7 +125,7 @@ public class PackageServiceITTest {
     }
 
     @Test
-    public void givenPackageCreteRequestWithGBP_WhenSavePackage_PackageIsSavedAsExpectedPackageIsReturnedRateIsConverted() {
+    public void givenPackageCreteRequestWithGBP_WhenSavePackage_PackageIsSavedAsExpectedPackageIsReturned() {
         PackageCreateRequest request = new PackageCreateRequest();
         request.setName("name");
         request.setDescription("desc");
