@@ -1,17 +1,17 @@
 # Product-Package Manager 
 
 The API must support the following:
-o Create a package o Retrieve a package o Update a package o Delete a package o List all packages
-• I should be able to specify the currency (taking into account the current exchange rate)
-o API should default to USD if no currency is specified
-o Free API services such as https://exchangeratesapi.io/ offer the ability to query existing
+- o Create a package o Retrieve a package o Update a package o Delete a package o List all packages
+- • I should be able to specify the currency (taking into account the current exchange rate)
+- o API should default to USD if no currency is specified
+- o Free API services such as https://exchangeratesapi.io/ offer the ability to query existing
 exchange rates
-• A package should have the following attributes:
-o ID
-o Name
-o Description
-o Products (one or more)
-o Price (total of product prices)
+- • A package should have the following attributes:
+- o ID
+- o Name
+- o Description
+- o Products (one or more)
+- o Price (total of product prices)
 
 ## Run the test
  mvn clean test
