@@ -20,10 +20,11 @@ o Price (total of product prices)
 
 - Navigate to terminal and run the command below:
 
-cd api 
-mvn spring-boot:run
-cd ../ui
-npm start
+- cd api 
+- mvn spring-boot:run
+- cd ../ui
+- npm install
+- npm start
 
 - go the http://localhost:3000/
 
