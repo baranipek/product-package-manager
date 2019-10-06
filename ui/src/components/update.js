@@ -93,11 +93,12 @@ class Update extends React.Component {
                         <select
                             type="text"
                             name="exchangeRate"
+                            value={this.state.exchangeRate}
                             defaultValue={this.state.exchangeRate}
                             onChange={this.handleChange}
                             placeholder="USD or GBP or EURO"
                         >
-                            <option value="USD">Select Currency</option>
+                            <option value="USD">USD</option>
                             <option value="GBP">GBP</option>
                             <option value="EUR">EUR</option>
                         </select>
